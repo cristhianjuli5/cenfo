@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENFOTEC — Belleza Integral · Una historia de transformación</title>
+<meta name="description" content="CENFOTEC - Centro de Formación Técnica en Belleza Integral. Saravena, Arauca. Formación técnica de calidad que transforma vidas.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #f2ede6;
+  --cream: #e8e0d4;
+  --accent: #d42b7a;
+  --accent2: #ff6b35;
+  --white: #ffffff;
+}
+
+body {
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── PROGRESS ── */
+#pbar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%; z-index: 999;
+  transition: width .05s linear;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 2.5rem;
+  mix-blend-mode: difference;
+}
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.1rem; letter-spacing: .25em;
+  color: var(--white); text-decoration: none;
+}
+.nav-right {
+  font-size: .65rem; letter-spacing: .15em;
+  color: rgba(255,255,255,.5); text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════
+   SECTION 0 — INTRO LOADER
+═══════════════════════════════════ */
+#loader {
+  position: fixed; inset: 0; z-index: 900;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+  transition: opacity .8s ease, visibility .8s ease;
+}
+#loader.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-word {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4rem, 15vw, 12rem);
+  letter-spacing: -.02em;
+  line-height: 0.85;
+  overflow: hidden;
+}
+.loader-word span {
+  display: block;
+  transform: translateY(100%);
+  animation: slideUp .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+.loader-word:nth-child(1) span { animation-delay: .1s; }
+.loader-word:nth-child(2) span { animation-delay: .25s; color: var(--accent); }
+.loader-word:nth-child(3) span { animation-delay: .4s; font-size: clamp(1rem, 3vw, 2rem); letter-spacing: .3em; color: rgba(255,255,255,.4); }
+@keyframes slideUp { to { transform: translateY(0); } }
+.loader-line {
+  width: 0; height: 1px; background: var(--accent);
+  animation: lineGrow 1s ease forwards;
+  animation-delay: .8s;
+  margin-top: .5rem;
+}
+@keyframes lineGrow { to { width: min(400px, 80vw); } }
+
+/* ═══════════════════════════════════
+   SECTION 1 — HERO ROTATIVO
+═══════════════════════════════════ */
+#s1 {
+  height: 500vh;
+  position: relative;
+}
+#s1-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  background: var(--paper);
+}
+#s1-bg {
+  position: absolute; inset: 0;
+  background-image: url('assets/images/belleza-2.jpg');
+  background-size: cover; background-position: center;
+  filter: grayscale(0.3) contrast(1.1);
+  will-change: transform;
+}
+#s1-over {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,.75) 0%, rgba(10,10,10,.25) 60%, transparent 100%);
+}
+
+#s1-ticker-wrap {
+  position: absolute;
+  width: 100%; overflow: hidden;
+  top: 50%; transform: translateY(-50%);
+  pointer-events: none;
+}
+#s1-ticker {
+  display: flex; white-space: nowrap;
+  will-change: transform;
+}
+.s1-ticker-item {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(5rem, 18vw, 16rem);
+  letter-spacing: -.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.15);
+  flex-shrink: 0;
+  padding-right: 2rem;
+  user-select: none;
+}
+.s1-ticker-item.accent { -webkit-text-stroke-color: rgba(212,43,122,.3); }
+
+#s1-hero {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: flex-end;
+  padding: 0 2.5rem 4rem;
+}
+#s1-eyebrow {
+  font-size: .65rem; letter-spacing: .25em;
+  color: var(--accent); text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0; transform: translateX(-30px);
+  transition: all .8s ease .3s;
+}
+#s1-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4.5rem, 16vw, 14rem);
+  line-height: .85; letter-spacing: -.02em;
+  color: var(--white);
+  opacity: 0; transform: translateX(-50px);
+  transition: all 1s cubic-bezier(.16,1,.3,1) .5s;
+}
+#s1-title em {
+  color: var(--accent); font-style: normal;
+  -webkit-text-stroke: 0;
+}
+#s1-sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  color: rgba(255,255,255,.7);
+  max-width: 600px; margin-top: 1.2rem;
+  opacity: 0; transform: translateX(-30px);
+  transition: all .9s ease .8s;
+}
+#s1-scroll-hint {
+  position: absolute; bottom: 2rem; right: 2.5rem;
+  font-size: .6rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.4);
+  display: flex; align-items: center; gap: .8rem;
+  opacity: 0; transition: opacity 1s ease 1.5s;
+}
+#s1-scroll-hint::before {
+  content: ''; display: block;
+  width: 40px; height: 1px; background: currentColor;
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(.3)} }
+.loaded #s1-eyebrow,
+.loaded #s1-title,
+.loaded #s1-sub,
+.loaded #s1-scroll-hint { opacity: 1; transform: translateX(0) translateY(0); }
+
+/* ═══════════════════════════════════
+   SECTION 2 — IMAGEN + TEXTO SPLIT
+═══════════════════════════════════ */
+#s2 { height: 300vh; position: relative; }
+#s2-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--paper);
+}
+#s2-img-col {
+  position: relative; overflow: hidden;
+}
+#s2-img-col img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.15);
+  transform-origin: center;
+  will-change: transform, filter;
+}
+#s2-text-col {
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 4rem 3rem;
+  background: var(--ink); position: relative; overflow: hidden;
+}
+#s2-rotated-bg {
+  position: absolute;
+  font-family: 'Anton', sans-serif;
+  font-size: 22vw; color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.04);
+  top: 50%; left: 50%;
+  transform-origin: center;
+  white-space: nowrap;
+  will-change: transform;
+  pointer-events: none;
+  user-select: none;
+}
+#s2-num {
+  font-size: .65rem; letter-spacing: .3em;
+  color: var(--accent); margin-bottom: 2rem;
+}
+#s2-h {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: .9; letter-spacing: -.02em;
+  color: var(--white); margin-bottom: 1.5rem;
+  will-change: transform;
+}
+#s2-h em { color: var(--accent); font-style: normal; display: block; }
+#s2-body {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(.9rem, 1.5vw, 1.2rem);
+  color: rgba(255,255,255,.6); line-height: 1.7;
+  max-width: 340px;
+}
+#s2-tag {
+  margin-top: 2.5rem;
+  font-size: .6rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.3);
+  text-transform: uppercase;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+
+/* ═══════════════════════════════════
+   SECTION 3 — STATEMENT GIGANTE ROTATIVO
+═══════════════════════════════════ */
+#s3 {
+  height: 400vh; position: relative;
+  background: var(--paper);
+}
+#s3-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+#s3-rotate-wrap {
+  position: relative; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.s3-line-wrap {
+  position: absolute; width: 110%; overflow: hidden;
+  will-change: transform;
+}
+.s3-line-wrap:nth-child(1) { top: 10%; }
+.s3-line-wrap:nth-child(2) { top: 38%; }
+.s3-line-wrap:nth-child(3) { top: 66%; }
+.s3-ticker-row {
+  display: flex; white-space: nowrap;
+  will-change: transform;
+}
+.s3-word {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  letter-spacing: -.02em; line-height: 1;
+  padding-right: 1.5rem;
+  flex-shrink: 0;
+}
+.s3-word.dark { color: var(--ink); }
+.s3-word.light { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+.s3-word.pink { color: var(--accent); }
+.s3-word.outline-pink { color: transparent; -webkit-text-stroke: 2px var(--accent); }
+
+#s3-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none;
+}
+#s3-center blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  color: var(--ink); text-align: center;
+  max-width: 600px; line-height: 1.5;
+  background: var(--paper);
+  padding: 2.5rem 3rem;
+  border: 2px solid var(--ink);
+  position: relative; z-index: 2;
+  opacity: 0; transform: scale(.9);
+  transition: all 1s ease;
+}
+#s3-center blockquote.vis { opacity: 1; transform: scale(1); }
+#s3-center blockquote cite {
+  display: block; margin-top: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem; font-style: normal;
+  letter-spacing: .15em; color: var(--accent);
+}
+
+/* ═══════════════════════════════════
+   SECTION 4 — MOSAIC SPLIT (foto + datos)
+═══════════════════════════════════ */
+#s4 {
+  background: var(--ink);
+  padding: 8rem 2.5rem;
+}
+#s4-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; max-width: 1400px; margin: 0 auto;
+}
+.s4-cell {
+  overflow: hidden; position: relative;
+  aspect-ratio: 4/5;
+}
+.s4-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease;
+  filter: grayscale(.2) contrast(1.1);
+}
+.s4-cell:hover img { transform: scale(1.05); filter: grayscale(0) contrast(1.2); }
+.s4-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(10,10,10,.9));
+  padding: 3rem 1.5rem 1.5rem;
+  font-size: .65rem; letter-spacing: .15em;
+  color: rgba(255,255,255,.7);
+  transform: translateY(100%); transition: transform .5s ease;
+}
+.s4-cell:hover .s4-label { transform: translateY(0); }
+.s4-stat-cell {
+  background: var(--accent);
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 3rem;
+  aspect-ratio: 4/5;
+  position: relative; overflow: hidden;
+}
+.s4-stat-cell::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(255,255,255,.15) 0%, transparent 60%);
+}
+.s4-stat-num {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  letter-spacing: -.04em; line-height: 1;
+  color: var(--white);
+}
+.s4-stat-lbl {
+  font-size: .7rem; letter-spacing: .15em;
+  color: rgba(255,255,255,.7); margin-top: .75rem;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════
+   SECTION 5 — FOTO SEQUENCE (scroll stack)
+═══════════════════════════════════ */
+#s5 { height: 600vh; position: relative; }
+#s5-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  background: var(--ink);
+}
+#s5-stack {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.s5-card {
+  position: absolute;
+  width: clamp(240px, 55vw, 680px);
+  border-radius: 4px; overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7);
+  will-change: transform, opacity;
+  transform-origin: center bottom;
+}
+.s5-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  aspect-ratio: 4/3;
+}
+.s5-card-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,.85));
+  padding: 3rem 1.5rem 1.5rem;
+  color: var(--white);
+}
+.s5-card-caption strong {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.2rem; letter-spacing: .05em; display: block;
+}
+.s5-card-caption span {
+  font-size: .6rem; letter-spacing: .15em;
+  color: rgba(255,255,255,.5);
+}
+
+#s5-side {
+  position: absolute; left: 2.5rem; top: 50%;
+  transform: translateY(-50%);
+  z-index: 10; pointer-events: none;
+}
+#s5-count {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(5rem, 15vw, 11rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.12);
+  line-height: 1;
+  will-change: contents;
+}
+#s5-label {
+  font-size: .6rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.3); margin-top: .5rem;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════
+   SECTION 6 — FULL STATEMENT
+═══════════════════════════════════ */
+#s6 {
+  height: 350vh; position: relative;
+  background: var(--paper);
+}
+#s6-sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+#s6-words {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0;
+  text-align: center;
+}
+.s6-word {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(5rem, 14vw, 13rem);
+  line-height: .88; letter-spacing: -.03em;
+  color: var(--ink);
+  display: block; overflow: hidden;
+}
+.s6-word-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform .9s cubic-bezier(.16,1,.3,1);
+}
+.s6-word.vis .s6-word-inner { transform: translateY(0); }
+.s6-word:nth-child(1) .s6-word-inner { transition-delay: .05s; }
+.s6-word:nth-child(2) .s6-word-inner { transition-delay: .15s; }
+.s6-word:nth-child(3) .s6-word-inner { transition-delay: .25s; }
+.s6-word:nth-child(4) .s6-word-inner { transition-delay: .35s; color: var(--accent); }
+.s6-sub {
+  font-size: .65rem; letter-spacing: .25em;
+  color: rgba(10,10,10,.4); margin-top: 2rem;
+  text-transform: uppercase;
+  opacity: 0; transition: opacity .8s ease .8s;
+}
+.s6-sub.vis { opacity: 1; }
+
+/* ═══════════════════════════════════
+   SECTION 7 — HORIZONTAL STRIP (data)
+═══════════════════════════════════ */
+#s7 {
+  background: var(--accent);
+  padding: 5rem 2.5rem;
+  overflow: hidden;
+}
+#s7-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px; max-width: 1400px; margin: 0 auto;
+}
+.s7-item {
+  background: var(--ink);
+  padding: 3rem 2rem;
+  position: relative;
+}
+.s7-item::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 0;
+  background: var(--paper);
+  transition: height .5s cubic-bezier(.16,1,.3,1);
+}
+.s7-item:hover::after { height: 4px; }
+.s7-num {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  color: var(--accent); letter-spacing: -.03em;
+  line-height: 1;
+}
+.s7-lbl {
+  font-size: .65rem; letter-spacing: .1em;
+  color: rgba(255,255,255,.5); margin-top: .75rem;
+  text-transform: uppercase;
+}
+.s7-desc {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: .85rem; color: rgba(255,255,255,.35);
+  margin-top: .5rem; line-height: 1.5;
+}
+
+/* ═══════════════════════════════════
+   SECTION 8 — FOTO GRANDE + TEXTO EDITORIAL
+═══════════════════════════════════ */
+#s8 { height: 350vh; position: relative; background: var(--ink); }
+#s8-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  display: grid; grid-template-columns: 55% 45%;
+}
+#s8-img {
+  position: relative; overflow: hidden;
+  will-change: transform;
+}
+#s8-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.1) contrast(1.15);
+  transform-origin: center;
+  will-change: transform;
+}
+#s8-img-over {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--ink) 100%);
+}
+#s8-content {
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 4rem 3rem;
+  position: relative;
+}
+#s8-eyebrow {
+  font-size: .6rem; letter-spacing: .25em;
+  color: var(--accent); margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+#s8-bignum {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.1);
+  line-height: 1; letter-spacing: -.04em;
+  position: absolute; top: 1rem; right: -1rem;
+  pointer-events: none;
+}
+#s8-h {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -.02em; line-height: .9;
+  color: var(--white); margin-bottom: 2rem;
+  will-change: transform;
+}
+#s8-h em { color: var(--accent); font-style: normal; display: block; }
+#s8-body {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(.9rem, 1.4vw, 1.15rem);
+  color: rgba(255,255,255,.55); line-height: 1.75;
+}
+#s8-tag {
+  margin-top: 3rem;
+  font-size: .6rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.25);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   SECTION 9 — GALERÍA MOSAIC
+═══════════════════════════════════ */
+#s9 { background: var(--paper); padding: 6rem 2.5rem; }
+#s9-eye {
+  font-size: .6rem; letter-spacing: .25em;
+  color: rgba(10,10,10,.35); text-transform: uppercase;
+  margin-bottom: 3rem; text-align: center;
+}
+.mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+  max-width: 1400px; margin: 0 auto;
+}
+.mi {
+  overflow: hidden; position: relative;
+  cursor: pointer;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.mi.vis { opacity: 1; transform: translateY(0); }
+.mi:nth-child(1) { transition-delay: .0s; }
+.mi:nth-child(2) { transition-delay: .08s; }
+.mi:nth-child(3) { transition-delay: .16s; }
+.mi:nth-child(4) { transition-delay: .24s; }
+.mi:nth-child(5) { transition-delay: .32s; }
+.mi.m1 { grid-column: 1/2; grid-row: 1; aspect-ratio: 3/4; }
+.mi.m2 { grid-column: 2/3; grid-row: 1; aspect-ratio: 3/4; }
+.mi.m3 { grid-column: 3/4; grid-row: 1; aspect-ratio: 3/4; }
+.mi.m4 { grid-column: 1/2; grid-row: 2; aspect-ratio: 16/9; }
+.mi.m5 { grid-column: 2/4; grid-row: 2; aspect-ratio: 16/9; }
+.mi img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .7s ease;
+  filter: grayscale(.15);
+}
+.mi:hover img { transform: scale(1.06); filter: grayscale(0) contrast(1.1); }
+.mi-label {
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,.0);
+  display: flex; align-items: flex-end; padding: 1.5rem;
+  font-size: .6rem; letter-spacing: .15em;
+  color: transparent; text-transform: uppercase;
+  transition: all .4s ease;
+}
+.mi:hover .mi-label {
+  background: rgba(10,10,10,.5);
+  color: rgba(255,255,255,.8);
+}
+
+/* ═══════════════════════════════════
+   SECTION 10 — CIERRE EDITORIAL
+═══════════════════════════════════ */
+#s10 {
+  height: 100vh; position: relative;
+  overflow: hidden; background: var(--ink);
+}
+#s10 > img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.2) contrast(1.1);
+  position: absolute; inset: 0;
+}
+#s10-over {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,.95) 0%, rgba(10,10,10,.3) 60%, transparent 100%);
+}
+#s10-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 5rem 2.5rem;
+}
+#s10-h {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3.5rem, 12vw, 10rem);
+  letter-spacing: -.03em; line-height: .85;
+  color: var(--white);
+}
+#s10-h em { color: var(--accent); font-style: normal; display: block; }
+#s10-meta {
+  font-size: .65rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.35); margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  #s2-sticky { grid-template-columns: 1fr; }
+  #s2-img-col { height: 40vh; }
+  #s2-text-col { padding: 2.5rem 1.5rem; }
+  #s4-inner { grid-template-columns: 1fr; }
+  #s7-inner { grid-template-columns: 1fr 1fr; }
+  #s8-sticky { grid-template-columns: 1fr; }
+  #s8-img { height: 40vh; }
+  #s8-content { padding: 2rem 1.5rem; }
+  .mosaic { grid-template-columns: 1fr 1fr; }
+  .mi.m1,.mi.m2,.mi.m3 { aspect-ratio: 1; }
+  .mi.m4,.mi.m5 { grid-column: span 1; }
+  #s5-side { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="pbar"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-word"><span>BELLEZA</span></div>
+  <div class="loader-word"><span>INTEGRAL</span></div>
+  <div class="loader-word"><span>CENFOTEC · SARAVENA</span></div>
+  <div class="loader-line"></div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="#">CENFOTEC</a>
+  <span class="nav-right">Belleza Integral · Saravena, Arauca</span>
+</nav>
+
+<!-- ① HERO ROTATIVO -->
+<div id="s1">
+  <div id="s1-sticky">
+    <div id="s1-bg"></div>
+    <div id="s1-over"></div>
+
+    <div id="s1-ticker-wrap">
+      <div id="s1-ticker">
+        <span class="s1-ticker-item">BELLEZA</span>
+        <span class="s1-ticker-item accent">INTEGRAL</span>
+        <span class="s1-ticker-item">VOCACIÓN</span>
+        <span class="s1-ticker-item accent">TALENTO</span>
+        <span class="s1-ticker-item">BELLEZA</span>
+        <span class="s1-ticker-item accent">INTEGRAL</span>
+        <span class="s1-ticker-item">VOCACIÓN</span>
+        <span class="s1-ticker-item accent">TALENTO</span>
+      </div>
+    </div>
+
+    <div id="s1-hero">
+      <div id="s1-eyebrow">Belleza Integral · Saravena, Arauca</div>
+      <h1 id="s1-title">BELLEZA<br><em>INTEGRAL</em></h1>
+      <p id="s1-sub">Formamos artistas de la belleza con vocación de servicio y excelencia técnica</p>
+    </div>
+
+    <div id="s1-scroll-hint">DESPLÁZATE</div>
+  </div>
+</div>
+
+<!-- ② FOTO + TEXTO SPLIT — Certificados -->
+<div id="s2">
+  <div id="s2-sticky">
+    <div id="s2-img-col">
+      <img src="assets/images/belleza-1.jpg" alt="Entrega de certificados Belleza Integral">
+    </div>
+    <div id="s2-text-col">
+      <div id="s2-rotated-bg">01</div>
+      <div id="s2-num">01 — El orgullo de lograrlo</div>
+      <h2 id="s2-h">El orgullo<em>de lograrlo</em></h2>
+      <p id="s2-body">Cada certificado representa meses de dedicación, práctica y pasión por la belleza. Nuestras estudiantes de Belleza Integral demuestran que el talento araucano brilla con luz propia.</p>
+      <div id="s2-tag">Entrega de certificados · Belleza Integral · Saravena</div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ STATEMENT ROTATIVO -->
+<div id="s3">
+  <div id="s3-sticky">
+    <div id="s3-rotate-wrap">
+      <div class="s3-line-wrap" id="s3-row1">
+        <div class="s3-ticker-row">
+          <span class="s3-word dark">BELLEZA</span>
+          <span class="s3-word light">BELLEZA</span>
+          <span class="s3-word pink">BELLEZA</span>
+          <span class="s3-word dark">BELLEZA</span>
+          <span class="s3-word outline-pink">BELLEZA</span>
+          <span class="s3-word dark">BELLEZA</span>
+          <span class="s3-word light">BELLEZA</span>
+        </div>
+      </div>
+      <div class="s3-line-wrap" id="s3-row2">
+        <div class="s3-ticker-row">
+          <span class="s3-word light">TALENTO</span>
+          <span class="s3-word dark">TALENTO</span>
+          <span class="s3-word outline-pink">TALENTO</span>
+          <span class="s3-word pink">TALENTO</span>
+          <span class="s3-word dark">TALENTO</span>
+          <span class="s3-word light">TALENTO</span>
+          <span class="s3-word dark">TALENTO</span>
+        </div>
+      </div>
+      <div class="s3-line-wrap" id="s3-row3">
+        <div class="s3-ticker-row">
+          <span class="s3-word pink">VOCACIÓN</span>
+          <span class="s3-word dark">VOCACIÓN</span>
+          <span class="s3-word light">VOCACIÓN</span>
+          <span class="s3-word dark">VOCACIÓN</span>
+          <span class="s3-word outline-pink">VOCACIÓN</span>
+          <span class="s3-word dark">VOCACIÓN</span>
+          <span class="s3-word pink">VOCACIÓN</span>
+        </div>
+      </div>
+
+      <div id="s3-center">
+        <blockquote id="s3-quote">
+          "No solo enseñamos una técnica.<br>Encendemos una vocación por la belleza."
+          <cite>CENFOTEC · Belleza Integral · Saravena</cite>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ GRID FOTOS + STATS -->
+<div id="s4">
+  <div id="s4-inner">
+    <div class="s4-cell">
+      <img src="assets/images/belleza-3.jpg" alt="Seminario de belleza">
+      <div class="s4-label">Seminario · Certificación profesional</div>
+    </div>
+    <div class="s4-stat-cell">
+      <div class="s4-stat-num">200+</div>
+      <div class="s4-stat-lbl">Estudiantes en belleza integral</div>
+    </div>
+    <div class="s4-stat-cell" style="background:var(--ink); border: 1px solid rgba(255,255,255,.08);">
+      <div class="s4-stat-num" style="color:var(--paper)">100%</div>
+      <div class="s4-stat-lbl">Formación práctica y teórica</div>
+    </div>
+    <div class="s4-cell">
+      <img src="assets/images/belleza-5.jpg" alt="Práctica de belleza comunitaria">
+      <div class="s4-label">Extensión comunitaria · Servicio social</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ SECUENCIA DE FOTOS (stack scroll) -->
+<div id="s5">
+  <div id="s5-sticky">
+    <div id="s5-side">
+      <div id="s5-count">01</div>
+      <div id="s5-label">de 05</div>
+    </div>
+    <div id="s5-stack">
+      <div class="s5-card" id="s5c1">
+        <img src="assets/images/belleza-1.jpg" alt="Certificados Belleza Integral">
+        <div class="s5-card-caption">
+          <strong>Orgullosas de su logro</strong>
+          <span>Certificación · Belleza Integral</span>
+        </div>
+      </div>
+      <div class="s5-card" id="s5c2">
+        <img src="assets/images/belleza-2.jpg" alt="Grupo CENFOTEC exterior">
+        <div class="s5-card-caption">
+          <strong>El equipo que hace posible el sueño</strong>
+          <span>CENFOTEC · Centro de Formación Técnica</span>
+        </div>
+      </div>
+      <div class="s5-card" id="s5c3">
+        <img src="assets/images/belleza-3.jpg" alt="Seminario certificados">
+        <div class="s5-card-caption">
+          <strong>Formación que transforma</strong>
+          <span>Seminario · Promoción 2025</span>
+        </div>
+      </div>
+      <div class="s5-card" id="s5c4">
+        <img src="assets/images/belleza-4.jpg" alt="Clase en auditorio">
+        <div class="s5-card-caption">
+          <strong>Aprender de los mejores</strong>
+          <span>Seminario teórico · Auditorio</span>
+        </div>
+      </div>
+      <div class="s5-card" id="s5c5">
+        <img src="assets/images/belleza-5.jpg" alt="Práctica comunitaria">
+        <div class="s5-card-caption">
+          <strong>Las manos que sirven con amor</strong>
+          <span>Extensión comunitaria · Belleza Integral</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ STATEMENT GRANDE -->
+<div id="s6">
+  <div id="s6-sticky">
+    <div id="s6-words">
+      <div class="s6-word"><div class="s6-word-inner">MÁS</div></div>
+      <div class="s6-word"><div class="s6-word-inner">DE</div></div>
+      <div class="s6-word" style="color: var(--accent)"><div class="s6-word-inner">200</div></div>
+      <div class="s6-word"><div class="s6-word-inner">VIDAS</div></div>
+    </div>
+    <div id="s6-sub" class="s6-sub">transformadas · Belleza Integral · Saravena · Arauca</div>
+  </div>
+</div>
+
+<!-- ⑦ DATOS HORIZONTALES -->
+<div id="s7">
+  <div id="s7-inner">
+    <div class="s7-item">
+      <div class="s7-num">200+</div>
+      <div class="s7-lbl">Estudiantes formados</div>
+      <div class="s7-desc">Artistas de la belleza con vocación</div>
+    </div>
+    <div class="s7-item">
+      <div class="s7-num">6</div>
+      <div class="s7-lbl">Módulos especializados</div>
+      <div class="s7-desc">Formación integral y práctica</div>
+    </div>
+    <div class="s7-item">
+      <div class="s7-num">100%</div>
+      <div class="s7-lbl">Compromiso social</div>
+      <div class="s7-desc">Cada estudiante, un agente de cambio</div>
+    </div>
+    <div class="s7-item">
+      <div class="s7-num">∞</div>
+      <div class="s7-lbl">Impacto en comunidad</div>
+      <div class="s7-desc">Arauca, una región transformada</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ FOTO EDITORIAL GRANDE — Clase magistral -->
+<div id="s8">
+  <div id="s8-sticky">
+    <div id="s8-img">
+      <img src="assets/images/belleza-4.jpg" alt="Clase magistral en auditorio">
+      <div id="s8-img-over"></div>
+    </div>
+    <div id="s8-content">
+      <div id="s8-bignum">03</div>
+      <div id="s8-eyebrow">Formación integral · Belleza que transforma</div>
+      <h2 id="s8-h">Las manos<em>que aprenden<br>a servir</em></h2>
+      <p id="s8-body">Nuestras estudiantes de Belleza Integral llevan sus conocimientos directamente a la comunidad. Las jornadas de extensión son parte esencial del proceso formativo. Cada persona atendida, cada sonrisa generada, es una lección que ningún aula puede enseñar.</p>
+      <div id="s8-tag">Extensión comunitaria · Belleza Integral · Saravena</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑨ GALERÍA MOSAIC -->
+<div id="s9">
+  <div id="s9-eye">Galería · Belleza Integral · Momentos que nos definen</div>
+  <div class="mosaic">
+    <div class="mi m1"><img src="assets/images/belleza-1.jpg" alt="Certificados"><div class="mi-label">Certificación 2025</div></div>
+    <div class="mi m2"><img src="assets/images/belleza-2.jpg" alt="Equipo exterior"><div class="mi-label">Equipo CENFOTEC</div></div>
+    <div class="mi m3"><img src="assets/images/belleza-5.jpg" alt="Práctica comunitaria"><div class="mi-label">Extensión comunitaria</div></div>
+    <div class="mi m4"><img src="assets/images/belleza-4.jpg" alt="Clase magistral"><div class="mi-label">Seminario magistral</div></div>
+    <div class="mi m5"><img src="assets/images/belleza-3.jpg" alt="Seminario certificados"><div class="mi-label">Promoción · Belleza Integral</div></div>
+  </div>
+</div>
+
+<!-- ⑩ CIERRE -->
+<div id="s10">
+  <img src="assets/images/belleza-2.jpg" alt="CENFOTEC Belleza Integral">
+  <div id="s10-over"></div>
+  <div id="s10-content">
+    <div id="s10-h">Tu belleza<em>transforma el mundo</em></div>
+    <div id="s10-meta">CENFOTEC · Belleza Integral · Saravena, Arauca · Colombia · 2025</div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function progress(sy, start, end){return clamp((sy-start)/(end-start),0,1);}
+function lerp(a,b,t){return a+(b-a)*t;}
+function easeOutCubic(t){return 1-Math.pow(1-t,3);}
+function easeInOutCubic(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+
+/* ══════════════════════════════════════════
+   LOADER
+══════════════════════════════════════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    $('loader').classList.add('gone');
+    document.body.classList.add('loaded');
+  }, 1600);
+});
+
+/* ══════════════════════════════════════════
+   INTERSECTION OBSERVER — simple reveals
+══════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('vis');
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.mi, .s6-word, .s6-sub').forEach(el => io.observe(el));
+
+// S3 quote
+const s3quote = $('s3-quote');
+const s3io = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) s3quote.classList.add('vis');
+}, { threshold: 0.5 });
+s3io.observe(s3quote);
+
+/* ══════════════════════════════════════════
+   MAIN SCROLL ENGINE
+══════════════════════════════════════════ */
+let ticking = false;
+
+function getTop(el){return el.getBoundingClientRect().top + window.scrollY;}
+
+function onScroll(){
+  const sy = window.scrollY;
+  const wh = window.innerHeight;
+  const dh = document.body.scrollHeight - wh;
+
+  /* Progress bar */
+  $('pbar').style.width = (sy/dh*100)+'%';
+
+  /* ── S1: Ticker rota con el scroll ── */
+  const s1 = $('s1');
+  const s1start = getTop(s1);
+  const s1p = progress(sy, s1start, s1start + s1.offsetHeight - wh);
+  // hero bg parallax
+  $('s1-bg').style.transform = `scale(1.08) translateY(${s1p * 80}px)`;
+  // ticker se mueve en dirección inversa
+  const tickerOffset = -(s1p * 1800);
+  $('s1-ticker').style.transform = `translateX(${tickerOffset}px)`;
+
+  /* ── S2: img scale + h2 slide ── */
+  const s2el = $('s2');
+  const s2start = getTop(s2el);
+  const s2p = progress(sy, s2start, s2start + s2el.offsetHeight - wh);
+  const s2img = document.querySelector('#s2-img-col img');
+  s2img.style.transform = `scale(${1 + s2p * 0.08}) translateY(${-s2p * 30}px)`;
+  // rotated bg number
+  const s2rbg = $('s2-rotated-bg');
+  s2rbg.style.transform = `translate(-50%, -50%) rotate(${-45 + s2p * 90}deg)`;
+  // h2 slide up slightly
+  $('s2-h').style.transform = `translateY(${-s2p * 40}px)`;
+
+  /* ── S3: tickers corren en direcciones opuestas ── */
+  const s3el = $('s3');
+  const s3start = getTop(s3el);
+  const s3ph = s3el.offsetHeight - wh;
+  const s3p = progress(sy, s3start, s3start + s3ph);
+  // row 1 → izquierda
+  document.querySelector('#s3-row1 .s3-ticker-row').style.transform = `translateX(${-s3p * 700}px)`;
+  // row 2 → derecha
+  document.querySelector('#s3-row2 .s3-ticker-row').style.transform = `translateX(${s3p * 500 - 200}px)`;
+  // row 3 → izquierda más rápido
+  document.querySelector('#s3-row3 .s3-ticker-row').style.transform = `translateX(${-s3p * 900 + 100}px)`;
+
+  /* ── S5: Card stack — se van levantando una a una ── */
+  const s5el = $('s5');
+  const s5start = getTop(s5el);
+  const s5ph = s5el.offsetHeight - wh;
+  const s5p = progress(sy, s5start, s5start + s5ph); // 0→1
+  const NUM = 5;
+  const stepSize = 1 / NUM;
+
+  for(let i = 0; i < NUM; i++){
+    const card = $('s5c'+(i+1));
+    const cardStart = i * stepSize;
+    const cardPeak = cardStart + stepSize * 0.3;
+    const cardEnd = cardStart + stepSize;
+    const cp = progress(s5p, cardStart, cardEnd);
+
+    // Before this card's turn
+    if(s5p < cardStart){
+      card.style.transform = `translateY(80px) scale(0.9) rotate(${(i%2==0?-3:3)}deg)`;
+      card.style.opacity = '0';
+      card.style.zIndex = i;
+    }
+    // Transitioning in
+    else if(s5p < cardPeak){
+      const inP = progress(s5p, cardStart, cardPeak);
+      const e = easeOutCubic(inP);
+      const rot = lerp((i%2==0?-3:3), 0, e);
+      card.style.transform = `translateY(${lerp(80,0,e)}px) scale(${lerp(.9,1,e)}) rotate(${rot}deg)`;
+      card.style.opacity = e;
+      card.style.zIndex = i + 10;
+    }
+    // Holding
+    else if(s5p < cardEnd - stepSize * 0.3){
+      card.style.transform = `translateY(0) scale(1) rotate(0deg)`;
+      card.style.opacity = '1';
+      card.style.zIndex = i + 10;
+    }
+    // Transitioning out (except last card)
+    else if(i < NUM - 1){
+      const outP = progress(s5p, cardEnd - stepSize * 0.3, cardEnd);
+      const e = easeInOutCubic(outP);
+      card.style.transform = `translateY(${-e*60}px) scale(${1-e*0.1}) rotate(${(i%2==0?-1:1)*e*5}deg)`;
+      card.style.opacity = 1-e;
+      card.style.zIndex = i + 10;
+    }
+    // Update counter
+    if(s5p >= cardStart && (i === NUM-1 || s5p < (i+1)*stepSize)){
+      $('s5-count').textContent = String(i+1).padStart(2,'0');
+    }
+  }
+
+  /* ── S8: img parallax ── */
+  const s8el = $('s8');
+  const s8start = getTop(s8el);
+  const s8p = progress(sy, s8start, s8start + s8el.offsetHeight - wh);
+  const s8img = document.querySelector('#s8-img img');
+  s8img.style.transform = `scale(1.08) translateY(${-s8p * 50}px)`;
+  $('s8-h').style.transform = `translateY(${s8p * 25}px)`;
+
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+}, {passive: true});
+
+onScroll();
+</script>
+</body>
+</html>
