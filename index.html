@@ -666,21 +666,314 @@ nav {
   text-transform: uppercase;
 }
 
-/* ── RESPONSIVE ── */
+/* ══════════════════════════════════════════
+   RESPONSIVE — TABLET (≤1024px)
+══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  nav { padding: 1.3rem 2rem; }
+  .nav-right { font-size: .55rem; }
+
+  /* S1 Hero */
+  #s1 { height: 400vh; }
+  #s1-hero { padding: 0 2rem 3.5rem; }
+
+  /* S2 Split */
+  #s2 { height: 250vh; }
+  #s2-sticky { grid-template-columns: 45% 55%; }
+  #s2-text-col { padding: 3rem 2rem; }
+  #s2-body { max-width: 100%; }
+
+  /* S3 Statement */
+  #s3 { height: 350vh; }
+  #s3-center blockquote { padding: 2rem 2.5rem; max-width: 500px; }
+
+  /* S4 Grid */
+  #s4 { padding: 5rem 2rem; }
+
+  /* S5 Cards */
+  #s5 { height: 500vh; }
+  .s5-card { width: clamp(240px, 60vw, 580px); }
+
+  /* S6 Statement */
+  #s6 { height: 300vh; }
+
+  /* S7 Stats */
+  #s7 { padding: 4rem 2rem; }
+
+  /* S8 Editorial */
+  #s8 { height: 300vh; }
+  #s8-sticky { grid-template-columns: 50% 50%; }
+  #s8-content { padding: 3rem 2rem; }
+
+  /* S9 Mosaic */
+  #s9 { padding: 5rem 2rem; }
+
+  /* S10 Cierre */
+  #s10-content { padding: 4rem 2rem; }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — PHONES (≤768px)
+══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  nav { padding: 1.2rem 1.5rem; }
-  #s2-sticky { grid-template-columns: 1fr; }
-  #s2-img-col { height: 40vh; }
-  #s2-text-col { padding: 2.5rem 1.5rem; }
-  #s4-inner { grid-template-columns: 1fr; }
-  #s7-inner { grid-template-columns: 1fr 1fr; }
-  #s8-sticky { grid-template-columns: 1fr; }
-  #s8-img { height: 40vh; }
-  #s8-content { padding: 2rem 1.5rem; }
-  .mosaic { grid-template-columns: 1fr 1fr; }
-  .mi.m1,.mi.m2,.mi.m3 { aspect-ratio: 1; }
-  .mi.m4,.mi.m5 { grid-column: span 1; }
+  body { cursor: auto; }
+
+  nav { padding: 1rem 1.2rem; }
+  .nav-logo { font-size: .9rem; letter-spacing: .15em; }
+  .nav-right { font-size: .5rem; letter-spacing: .08em; }
+
+  /* S1 Hero */
+  #s1 { height: 350vh; }
+  #s1-hero { padding: 0 1.5rem 3rem; }
+  #s1-title { font-size: clamp(3.5rem, 14vw, 8rem); }
+  #s1-sub { font-size: clamp(.9rem, 3.5vw, 1.3rem); max-width: 90%; }
+  #s1-eyebrow { font-size: .55rem; letter-spacing: .15em; }
+  #s1-scroll-hint { bottom: 1.5rem; right: 1.5rem; font-size: .5rem; }
+  .s1-ticker-item { font-size: clamp(3.5rem, 14vw, 10rem); padding-right: 1rem; }
+
+  /* S2 Split → Stack */
+  #s2 { height: 200vh; }
+  #s2-sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45% 55%;
+  }
+  #s2-img-col { height: auto; min-height: 0; }
+  #s2-text-col { padding: 2rem 1.5rem; }
+  #s2-h { font-size: clamp(2rem, 7vw, 3rem); margin-bottom: 1rem; }
+  #s2-body { font-size: clamp(.85rem, 2.5vw, 1rem); max-width: 100%; line-height: 1.6; }
+  #s2-num { font-size: .55rem; margin-bottom: 1rem; }
+  #s2-tag { margin-top: 1.5rem; font-size: .5rem; }
+  #s2-rotated-bg { font-size: 30vw; }
+
+  /* S3 Statement */
+  #s3 { height: 300vh; }
+  .s3-word { font-size: clamp(2.5rem, 8vw, 5rem); padding-right: .8rem; }
+  .s3-line-wrap:nth-child(1) { top: 15%; }
+  .s3-line-wrap:nth-child(2) { top: 40%; }
+  .s3-line-wrap:nth-child(3) { top: 65%; }
+  #s3-center blockquote {
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+    padding: 1.5rem 1.8rem;
+    max-width: 85vw;
+  }
+  #s3-center blockquote cite { font-size: .55rem; }
+
+  /* S4 Grid → Single Column */
+  #s4 { padding: 4rem 1.2rem; }
+  #s4-inner { grid-template-columns: 1fr; gap: 2px; }
+  .s4-cell { aspect-ratio: 16/10; }
+  .s4-stat-cell { aspect-ratio: auto; padding: 2.5rem 1.5rem; }
+  .s4-stat-num { font-size: clamp(3rem, 12vw, 5rem); }
+  .s4-stat-lbl { font-size: .6rem; }
+  .s4-label { transform: translateY(0); }
+
+  /* S5 Card Stack */
+  #s5 { height: 450vh; }
+  .s5-card {
+    width: clamp(220px, 80vw, 400px);
+  }
+  .s5-card img { aspect-ratio: 4/3; }
+  .s5-card-caption { padding: 2rem 1.2rem 1.2rem; }
+  .s5-card-caption strong { font-size: 1rem; }
+  .s5-card-caption span { font-size: .5rem; }
   #s5-side { display: none; }
+
+  /* S6 Statement */
+  #s6 { height: 250vh; }
+  .s6-word { font-size: clamp(3.5rem, 12vw, 8rem); }
+  .s6-sub { font-size: .5rem; letter-spacing: .15em; margin-top: 1.5rem; }
+
+  /* S7 Stats → 2 columns */
+  #s7 { padding: 3rem 1.2rem; }
+  #s7-inner { grid-template-columns: 1fr 1fr; }
+  .s7-item { padding: 2rem 1.2rem; }
+  .s7-num { font-size: clamp(2rem, 8vw, 3rem); }
+  .s7-lbl { font-size: .55rem; }
+  .s7-desc { font-size: .75rem; }
+
+  /* S8 Editorial → Stack */
+  #s8 { height: 250vh; }
+  #s8-sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45% 55%;
+  }
+  #s8-img { height: auto; min-height: 0; }
+  #s8-img-over {
+    background: linear-gradient(to bottom, transparent 60%, var(--ink) 100%);
+  }
+  #s8-content { padding: 1.5rem 1.5rem 2rem; }
+  #s8-eyebrow { font-size: .5rem; margin-bottom: 1rem; }
+  #s8-h { font-size: clamp(1.8rem, 6vw, 2.5rem); margin-bottom: 1rem; }
+  #s8-body { font-size: clamp(.8rem, 2.5vw, 1rem); }
+  #s8-tag { margin-top: 1.5rem; font-size: .5rem; }
+  #s8-bignum { font-size: clamp(4rem, 15vw, 7rem); top: .5rem; right: .5rem; }
+
+  /* S9 Mosaic → 2 columns */
+  #s9 { padding: 4rem 1.2rem; }
+  #s9-eye { font-size: .5rem; margin-bottom: 2rem; }
+  .mosaic { grid-template-columns: 1fr 1fr; }
+  .mi.m1 { grid-column: 1/2; grid-row: 1; aspect-ratio: 1; }
+  .mi.m2 { grid-column: 2/3; grid-row: 1; aspect-ratio: 1; }
+  .mi.m3 { grid-column: 1/3; grid-row: 2; aspect-ratio: 16/9; }
+  .mi.m4 { grid-column: 1/2; grid-row: 3; aspect-ratio: 1; }
+  .mi.m5 { grid-column: 2/3; grid-row: 3; aspect-ratio: 1; }
+  .mi-label {
+    background: rgba(10,10,10,.4);
+    color: rgba(255,255,255,.7);
+    font-size: .5rem;
+    padding: 1rem;
+  }
+
+  /* S10 Cierre */
+  #s10-content { padding: 3rem 1.5rem; }
+  #s10-h { font-size: clamp(2.5rem, 10vw, 6rem); }
+  #s10-meta { font-size: .5rem; margin-top: 1.2rem; }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — SMALL PHONES (≤480px)
+══════════════════════════════════════════ */
+@media (max-width: 480px) {
+  nav { padding: .8rem 1rem; }
+  .nav-logo { font-size: .8rem; letter-spacing: .12em; }
+  .nav-right { display: none; }
+
+  /* Loader */
+  .loader-word { font-size: clamp(2.5rem, 12vw, 6rem); }
+  .loader-word:nth-child(3) span { font-size: clamp(.65rem, 2.5vw, 1rem); letter-spacing: .15em; }
+
+  /* S1 Hero */
+  #s1 { height: 300vh; }
+  #s1-hero { padding: 0 1rem 2.5rem; }
+  #s1-title { font-size: clamp(3rem, 13vw, 6rem); }
+  #s1-sub { font-size: clamp(.85rem, 3.5vw, 1.1rem); margin-top: .8rem; }
+  #s1-eyebrow { font-size: .45rem; letter-spacing: .1em; margin-bottom: .6rem; }
+  #s1-scroll-hint { display: none; }
+  .s1-ticker-item { font-size: clamp(2.5rem, 12vw, 6rem); }
+
+  /* S2 Split */
+  #s2 { height: 180vh; }
+  #s2-sticky { grid-template-rows: 40% 60%; }
+  #s2-text-col { padding: 1.5rem 1rem; }
+  #s2-h { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  #s2-body { font-size: .85rem; line-height: 1.55; }
+  #s2-num { font-size: .5rem; margin-bottom: .8rem; }
+  #s2-tag { margin-top: 1rem; padding-top: 1rem; }
+
+  /* S3 Statement */
+  #s3 { height: 250vh; }
+  .s3-word { font-size: clamp(2rem, 7vw, 3.5rem); padding-right: .5rem; }
+  .s3-word.light { -webkit-text-stroke-width: 1px; }
+  .s3-word.outline-pink { -webkit-text-stroke-width: 1px; }
+  #s3-center blockquote {
+    font-size: clamp(.9rem, 3.2vw, 1.2rem);
+    padding: 1.2rem 1.5rem;
+    max-width: 90vw;
+    border-width: 1px;
+  }
+
+  /* S4 Grid */
+  #s4 { padding: 3rem 1rem; }
+  .s4-cell { aspect-ratio: 16/12; }
+  .s4-stat-cell { padding: 2rem 1.2rem; }
+  .s4-stat-num { font-size: clamp(2.5rem, 14vw, 4rem); }
+
+  /* S5 Card Stack */
+  #s5 { height: 400vh; }
+  .s5-card {
+    width: clamp(200px, 85vw, 340px);
+  }
+  .s5-card-caption { padding: 1.5rem 1rem 1rem; }
+  .s5-card-caption strong { font-size: .9rem; }
+
+  /* S6 Statement */
+  #s6 { height: 200vh; }
+  .s6-word { font-size: clamp(3rem, 11vw, 6rem); }
+  .s6-sub { font-size: .45rem; letter-spacing: .1em; margin-top: 1rem; }
+
+  /* S7 Stats → 1 column */
+  #s7 { padding: 2.5rem 1rem; }
+  #s7-inner { grid-template-columns: 1fr; }
+  .s7-item { padding: 1.5rem 1rem; }
+
+  /* S8 Editorial */
+  #s8 { height: 200vh; }
+  #s8-sticky { grid-template-rows: 38% 62%; }
+  #s8-content { padding: 1.2rem 1rem 1.5rem; }
+  #s8-h { font-size: clamp(1.5rem, 6vw, 2rem); margin-bottom: .8rem; }
+  #s8-body { font-size: .8rem; line-height: 1.6; }
+  #s8-eyebrow { font-size: .45rem; margin-bottom: .8rem; }
+  #s8-tag { margin-top: 1rem; }
+  #s8-bignum { display: none; }
+
+  /* S9 Mosaic → 1 column */
+  #s9 { padding: 3rem 1rem; }
+  .mosaic { grid-template-columns: 1fr; }
+  .mi.m1, .mi.m2, .mi.m3, .mi.m4, .mi.m5 {
+    grid-column: 1; grid-row: auto;
+    aspect-ratio: 16/10;
+  }
+
+  /* S10 Cierre */
+  #s10-content { padding: 2rem 1rem; }
+  #s10-h { font-size: clamp(2rem, 9vw, 4rem); }
+  #s10-meta { font-size: .45rem; letter-spacing: .12em; }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — LANDSCAPE PHONES
+══════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  #s1 { height: 400vh; }
+  #s1-hero { padding: 0 2rem 1.5rem; }
+  #s1-title { font-size: clamp(2.5rem, 10vh, 5rem); }
+  #s1-sub { font-size: clamp(.8rem, 2vh, 1rem); }
+  .s1-ticker-item { font-size: clamp(2rem, 8vh, 5rem); }
+
+  /* S2 */
+  #s2 { height: 250vh; }
+  #s2-sticky { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+  #s2-img-col { height: auto; }
+
+  /* S3 */
+  .s3-word { font-size: clamp(2rem, 6vh, 4rem); }
+  #s3-center blockquote { font-size: clamp(.8rem, 2vh, 1.2rem); padding: 1rem 1.5rem; }
+
+  /* S5 */
+  .s5-card { width: clamp(200px, 50vw, 400px); }
+  .s5-card img { aspect-ratio: 16/9; }
+
+  /* S6 */
+  .s6-word { font-size: clamp(2.5rem, 10vh, 6rem); }
+
+  /* S8 */
+  #s8-sticky { grid-template-columns: 50% 50%; grid-template-rows: 1fr; }
+  #s8-img { height: auto; }
+  #s8-img-over { background: linear-gradient(to right, transparent 60%, var(--ink) 100%); }
+
+  /* S10 */
+  #s10-h { font-size: clamp(2rem, 8vh, 5rem); }
+}
+
+/* ══════════════════════════════════════════
+   TOUCH DEVICE OPTIMIZATIONS
+══════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+
+  /* Show labels always on touch (no hover available) */
+  .s4-label { transform: translateY(0); }
+  .mi-label {
+    background: rgba(10,10,10,.4);
+    color: rgba(255,255,255,.7);
+  }
+
+  /* Disable hover scale on touch */
+  .s4-cell:hover img { transform: none; }
+  .mi:hover img { transform: none; filter: grayscale(.15); }
+
+  /* Better tap targets */
+  .s7-item { padding: 2rem 1.5rem; }
 }
 </style>
 </head>
